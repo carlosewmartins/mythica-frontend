@@ -2,11 +2,12 @@
   "name": "Mythica Frontend (Angular 19)",
   "dockerComposeFile": ["../compose.yaml"],
   "service": "dev",
-  "runServices": ["dev"],                       // <- sobe só o serviço 'dev'
-  "containerEnv": { "COMPOSE_PROFILES": "dev" },// <- habilita o profile 'dev'
+  "runServices": ["dev"],
+  "containerEnv": {
+    "COMPOSE_PROFILES": "dev"
+  },
   "workspaceFolder": "/workspace",
-  "overrideCommand": true,
-  "postCreateCommand": "npm ci",
+  "overrideCommand": false,
   "updateContentCommand": "apk add --no-cache git bash openssh ca-certificates && update-ca-certificates",
   "forwardPorts": [4200],
   "portsAttributes": {
@@ -14,7 +15,10 @@
   },
   "remoteUser": "root",
   "remoteEnv": {
-    "NODE_OPTIONS": "--max-old-space-size=4096"
+    "NODE_OPTIONS": "--max-old-space-size=4096",
+    "CHOKIDAR_USEPOLLING": "true",
+    "CHOKIDAR_INTERVAL": "300",
+    "WATCHPACK_POLLING": "true"
   },
   "customizations": {
     "vscode": {
@@ -29,10 +33,19 @@
         "editor.formatOnSave": true,
         "files.eol": "\n",
         "typescript.tsdk": "node_modules/typescript/lib",
-        "eslint.validate": ["typescript", "typescriptreact", "html", "json"],
+        "eslint.validate": [
+          "typescript",
+          "typescriptreact",
+          "html",
+          "json"
+        ],
         "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-        "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
         "prettier.singleQuote": true,
         "prettier.trailingComma": "all"
       }

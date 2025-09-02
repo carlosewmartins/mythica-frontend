@@ -3,13 +3,16 @@ services:
     profiles: ["dev"]
     image: node:20-alpine
     working_dir: /workspace
-    command: sh -c "npm ci && npm run start -- --host 0.0.0.0"
+    # Força polling do watcher e garante host 0.0.0.0
+    command: sh -lc "npm ci && CHOKIDAR_USEPOLLING=true CHOKIDAR_INTERVAL=300 npm run start -- --host 0.0.0.0"
     ports:
       - "4200:4200"
     volumes:
       - .:/workspace
+      - node_modules_cache:/workspace/node_modules   # cache de dependências
     environment:
       - NODE_ENV=development
+      - WATCHPACK_POLLING=true
 
   app:
     profiles: ["prod"]
@@ -21,3 +24,6 @@ services:
     environment:
       - NODE_ENV=production
     restart: unless-stopped
+
+volumes:
+  node_modules_cache:
