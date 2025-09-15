@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "primetail": {
+    "mythica": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "primetail:build:production"
+              "buildTarget": "mythica:build:production"
             },
             "development": {
-              "buildTarget": "primetail:build:development"
+              "buildTarget": "mythica:build:development"
             }
           },
           "defaultConfiguration": "development"
