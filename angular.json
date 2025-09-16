@@ -30,8 +30,7 @@
               }
             ],
             "styles": [
-              "src/styles/mythica.css",
-              "src/styles/styles.scss"
+              "src/styles.scss"
             ]
           },
           "configurations": {
