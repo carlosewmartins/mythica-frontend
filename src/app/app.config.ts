@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import MeuTema from '../styles/mythica';
 
 
 export const appConfig: ApplicationConfig = {
@@ -14,8 +15,16 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura
+        options: {
+          prefix: 'my',
+          cssLayer: {
+            name: 'primeng',
+            order: 'base, primeng, components, utilities, app'
+          }
+        },
+        preset: MeuTema
       }
+      
     })
   ]
 };
