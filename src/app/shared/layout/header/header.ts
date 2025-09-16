@@ -1,31 +1,60 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { CardModule } from 'primeng/card';
+import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'primeng/badge';
+import { AvatarModule } from 'primeng/avatar';
+import { InputTextModule } from 'primeng/inputtext';
+import { CommonModule } from '@angular/common';
+import { Ripple } from 'primeng/ripple';
+import { Menubar } from 'primeng/menubar'
+import { ButtonModule } from 'primeng/button'
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.html',
-  styleUrl: './header.scss',
-  providers: [
-    MessageService
-  ],
-  imports: [
-    ButtonModule,
-    ToastModule,
-    CardModule
-  ]
+    selector: 'app-header',
+    templateUrl: './header.html',
+    standalone: true,
+    imports: [
+      Menubar,
+      BadgeModule, 
+      AvatarModule,
+      InputTextModule,
+      Ripple,
+      ButtonModule,
+      CommonModule]
 })
-export class Header {
-  constructor(private messageService: MessageService) {}
+export class Header implements OnInit {
+    items: MenuItem[] | undefined;
 
-  showToast() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Tema Mythica',
-      detail: 'O tema está funcionando!'
-    });
-  }
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Home',
+                icon: 'pi pi-home',
+            },
+            {
+                label: 'Projects',
+                icon: 'pi pi-search',
+                badge: '3',
+                items: [
+                    {
+                        label: 'Core',
+                        icon: 'pi pi-bolt',
+                        shortcut: '⌘+S',
+                    },
+                    {
+                        label: 'Blocks',
+                        icon: 'pi pi-server',
+                        shortcut: '⌘+B',
+                    },
+                    {
+                        separator: true,
+                    },
+                    {
+                        label: 'UI Kit',
+                        icon: 'pi pi-pencil',
+                        shortcut: '⌘+U',
+                    },
+                ],
+            },
+        ];
+    }
 }
-
