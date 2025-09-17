@@ -3,12 +3,14 @@
 @use "primeicons/primeicons.css";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-* {
-  color: var(--color-orange-100);
-}
 
 html {
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
+  color: var(--color-orange-50)
+}
+
+body {
+  background-color: #0A0F16;
 }

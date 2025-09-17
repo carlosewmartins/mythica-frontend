@@ -16,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         options: {
+          darkModeSelector: '.mythica-dark',
           prefix: 'my',
           cssLayer: {
             name: 'primeng',

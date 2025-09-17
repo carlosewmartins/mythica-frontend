@@ -14,7 +14,16 @@ const MyPreset = definePreset(Aura, {
       300: "#A5B3BC", 400: "#738391", 500: "#0F1D26",
       600: "#0D1922", 700: "#0B151C", 800: "#091117",
       900: "#070D12", 950: "#050A0D"
+    },
+    colorScheme: {
+      dark: {
+        50:  "#F4F5F7", 100: "#E3E6EA", 200: "#C9CED6",
+        300: "#A6AFBB", 400: "#7C8691", 500: "#0A0F16",
+        600: "#080C12", 700: "#060A0E", 800: "#05080B",
+        900: "#040609", 950: "#020305"
+      }
     }
+    
   },
    components: {
     button: {
@@ -33,7 +42,8 @@ const MyPreset = definePreset(Aura, {
               borderColor: '{primary.700}',
               hoverBorderColor: '{primary.950}',
               activeBackground: '{primary.900}',
-              activeBorderColor: '{primary.900}'
+              activeBorderColor: '{primary.900}',
+              color: '#{gray-200}'
             },
             secondary: {
               background: '{secondary.500}',
