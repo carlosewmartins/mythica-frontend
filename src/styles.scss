@@ -3,6 +3,10 @@
 @use "primeicons/primeicons.css";
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+* {
+  color: var(--color-orange-100);
+}
+
 html {
   font-size: 14px;
   font-family: 'Nunito Sans', sans-serif;
