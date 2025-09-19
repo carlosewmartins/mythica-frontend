@@ -7,7 +7,8 @@
           <a href="#">Inicio</a>
           <a href="#">Como Funciona</a>
           <a href="#">Criar Personagem</a>
-          <p-button><span pButtonLabel>Cadastro</span></p-button>
+          <p-button (click)="register.showDialog()"><span pButtonLabel>Cadastro</span></p-button>
+          <app-register #register></app-register>
         </div>
     </ng-template>
 </p-menubar>

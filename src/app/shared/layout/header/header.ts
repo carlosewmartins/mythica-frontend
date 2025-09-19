@@ -3,9 +3,9 @@ import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
-import { Menubar } from 'primeng/menubar'
-import { ButtonModule } from 'primeng/button'
-
+import { Menubar } from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
+import { Register } from '../../components/register/register';
 @Component({
     selector: 'app-header',
     templateUrl: './header.html',
@@ -17,7 +17,8 @@ import { ButtonModule } from 'primeng/button'
       AvatarModule,
       InputTextModule,
       ButtonModule,
-      CommonModule]
+      CommonModule,
+      Register]
 })
 export class Header {
 }
