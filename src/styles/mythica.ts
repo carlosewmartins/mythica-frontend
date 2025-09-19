@@ -38,17 +38,18 @@ const MyPreset = definePreset(Aura, {
           root: {
             primary: {
               background: '{primary.700}',
-              hoverBackground: '{primary.800}',
+              color: '#{gray-200}',
               borderColor: '{primary.700}',
+              hoverBackground: '{primary.800}',
+              hoverColor: '#{gray-200}',
               hoverBorderColor: '{primary.950}',
               activeBackground: '{primary.900}',
-              activeBorderColor: '{primary.900}',
-              color: '#{gray-200}'
+              activeBorderColor: '{primary.900}'
             },
             secondary: {
               background: '{secondary.500}',
-              hoverBackground: '{secondary.600}',
               borderColor: '{slate.600}',
+              hoverBackground: '{secondary.600}',
               hoverBorderColor: '{secondary.600}',
               activeBackground: '{secondary.700}',
               activeBorderColor: '{secondary.700}'
