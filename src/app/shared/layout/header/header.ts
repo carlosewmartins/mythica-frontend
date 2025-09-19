@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Menubar } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { Register } from '../../components/register/register';
-import { Login } from "../../components/login/login";
+
 @Component({
     selector: 'app-header',
     templateUrl: './header.html',
@@ -19,8 +19,7 @@ import { Login } from "../../components/login/login";
     InputTextModule,
     ButtonModule,
     CommonModule,
-    Register,
-    Login
+    Register
 ]
 })
 export class Header {
