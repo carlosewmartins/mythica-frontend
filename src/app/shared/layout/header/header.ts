@@ -5,7 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
 import { Menubar } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
-import { Register } from '../../components/register/register';
+import { Register } from '../../components/register/register-dialog/register';
 
 @Component({
     selector: 'app-header',
