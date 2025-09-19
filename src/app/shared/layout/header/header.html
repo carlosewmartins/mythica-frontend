@@ -7,8 +7,12 @@
           <a href="#">Inicio</a>
           <a href="#">Como Funciona</a>
           <a href="#">Criar Personagem</a>
-          <p-button (click)="register.showDialog()"><span pButtonLabel>Cadastro</span></p-button>
-          <app-register #register></app-register>
+          <div class="flex gap-4">
+            <p-button (click)="login.showDialog()" severity="secondary"><span pButtonLabel>Entrar</span></p-button>
+            <p-button (click)="register.showDialog()"><span pButtonLabel>Cadastro</span></p-button>
+            <app-register #register></app-register>
+            <app-login #login></app-login >
+          </div>
         </div>
     </ng-template>
 </p-menubar>
