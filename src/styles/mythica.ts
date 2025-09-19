@@ -56,6 +56,12 @@ const MyPreset = definePreset(Aura, {
           }
         }
       }
+    },
+    menubar: {
+      root: {
+        borderColor: 'rgba(0,0,0,0)',
+        background: 'rgba(0,0,0,0)'
+      }
     }
   }
 });
