@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
+import { MessageService } from 'primeng/api';
 import Aura from '@primeuix/themes/aura';
 import MeuTema from '../styles/mythica';
 
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
+    MessageService,
     providePrimeNG({
       theme: {
         options: {
@@ -25,7 +27,7 @@ export const appConfig: ApplicationConfig = {
         },
         preset: MeuTema
       }
-      
+
     })
   ]
 };

@@ -1,23 +1,15 @@
-<p-dialog header="Registrar" [modal]="true" [(visible)]="visible">
+<p-dialog
+header="Registrar"
+[modal]="true"
+[(visible)]="visible"
+[style]="{width: '400px', height: '400px'}">
     <ng-template #headless>
         <div
             class="flex flex-col px-8 py-8 gap-6 rounded-2xl"
             style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--p-primary-400), var(--p-primary-700))"
         >
-            <div class="inline-flex flex-col gap-2">
-                <label for="username" class="text-primary-50 font-semibold">Usuario</label>
-                <input pInputText id="username" class="p-4" />
-            </div>
-            <div class="inline-flex flex-col gap-2">
-                <label for="password" class="text-primary-50 font-semibold">Senha</label>
-                <input
-                    pInputText
-                    id="password"
-                    class="!bg-white/20 !border-0 !p-4 !text-primary-50 w-80"
-                    type="password"
-                />
-            </div>  
-            <div class="flex items-center gap-4">
+            <app-register-form></app-register-form>
+            <div class="flex items-center gap-4 mt-4">
                 <p-button
                     label="Cancel"
                     (click)="closeDialog()"
@@ -32,6 +24,11 @@
                     styleClass="!p-4 w-full !text-primary-50 !border !border-white/30 hover:!bg-white/10"
                     class="w-full"
                 />
+            </div>
+            <div class="flex flex-col justify-center items-center gap-1">
+                <p>Ja possuí uma conta?</p>
+                <a href="#" (click)="login.showDialog()">Login</a>
+                <app-login #login></app-login>
             </div>
         </div>
     </ng-template>

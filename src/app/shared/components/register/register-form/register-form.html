@@ -1,24 +1,49 @@
-<p>register-form works!</p>
-
 <p-toast></p-toast>
 <div class="card flex justify-center">
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 w-full sm:w-56">
-    <div class="flex flex-col gap-1">
-        <input pInputText type="text" id="username" placeholder="Username" formControlName="username" [invalid]="isInvalid('username')" />
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full max-w-sm">
+    <div class="inline-flex flex-col gap-2">
+        <input pInputText class="bg-white/20 border-0 p-4 text-primary-50 w-full" type="text" id="username" placeholder="Nome de usuario" formControlName="username" [invalid]="isInvalid('username')" />
         @if (isInvalid('username')) {
-            <p-message severity="error" size="small" variant="simple">Username is required.</p-message>
+            <p-message severity="error" size="small" variant="simple">Deve preencher um nome de usuario.</p-message>
         }
     </div>
-    <div class="flex flex-col gap-1">
-        <input pInputText type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
+    <div class="inline-flex flex-col gap-2">
+        <input pInputText class="bg-white/20 border-0 p-4 text-primary-50 w-full" type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
         @if (isInvalid('email')) {
-            @if (exampleForm.get('email')?.errors?.['required']) {
-                <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+            @if (registerForm.get('email')?.errors?.['required']) {
+                <p-message severity="error" size="small" variant="simple">Deve preencher um email.</p-message>
             }
-            @if (exampleForm.get('email')?.errors?.['email']) {
-                <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+            @if (registerForm.get('email')?.errors?.['email']) {
+                <p-message severity="error" size="small" variant="simple">Insira um email valido.</p-message>
             }
         }
     </div>
-    <button pButton severity="secondary" type="submit"><span pButtonLabel>Submit</span></button>
+
+    <div class="inline-flex flex-col gap-2">
+        <p-password
+        inputStyleClass="bg-white/20 border-0 p-4 text-primary-50 w-full"
+        [invalid]="isInvalid('password')"
+        [toggleMask]="true"
+        feedback="true"
+        formControlName="password"
+        promptLabel="Crie uma senha segura!"
+        placeholder="Senha"
+        weakLabel="Fraca"
+        mediumLabel="Média"
+        strongLabel="Forte"
+        >
+            <ng-template #header>
+                <div class="font-semibold text-xm mb-4">Digite sua senha!</div>
+            </ng-template>
+            <ng-template #footer>
+                <p-divider />
+                <ul class="pl-2 my-0 leading-normal">
+                    <li>Mínimo: </li>
+                    <li>• 1 minúscula</li>
+                    <li>• 1 maiúscula</li>
+                    <li>• 1 número</li>
+                </ul>
+            </ng-template>
+        </p-password>
+    </div>
 </form>
