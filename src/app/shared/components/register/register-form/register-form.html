@@ -6,8 +6,8 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full max-w-md">
         <div class="inline-flex flex-col gap-2">
             <label>Nome de Usuário</label>
-            <p-inputgroup class="border-1 border-slate-600/50 rounded-lg">
-                <p-inputgroup-addon styleClass="bg-slate-800/80 border-none">
+            <p-inputgroup>
+                <p-inputgroup-addon>
                     <i class="pi pi-user"></i>
                 </p-inputgroup-addon>
                 <input pInputText type="text" id="username" formControlName="username" [invalid]="isInvalid('username')" />
@@ -46,7 +46,6 @@
                 feedback="true"
                 formControlName="password"
                 promptLabel="Crie uma senha segura!"
-                placeholder="Senha"
                 weakLabel="Fraca"
                 mediumLabel="Média"
                 strongLabel="Forte"
