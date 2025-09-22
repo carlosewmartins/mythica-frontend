@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -6,8 +6,9 @@ import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password'
 import { DividerModule } from 'primeng/divider'
+import { InputGroupModule } from 'primeng/inputgroup'
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon'
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-
 @Component({
   selector: 'app-register-form',
   imports: [
@@ -17,18 +18,23 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
     ToastModule,
     MessageModule,
     PasswordModule,
-    DividerModule
+    DividerModule,
+    InputGroupModule,
+    InputGroupAddonModule,
   ],
   standalone: true,
   templateUrl: './register-form.html',
   styleUrl: './register-form.scss'
 })
+
 export class RegisterForm {
   messageService = inject(MessageService);
 
   registerForm: FormGroup;
 
   formSubmitted = false;
+
+  @Output() cancel = new EventEmitter<void>();
 
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
@@ -55,6 +61,10 @@ export class RegisterForm {
   isInvalid(field: string) {
       const control = this.registerForm.get(field);
       return control?.invalid && (control.touched || this.formSubmitted);
+  }
+
+  onCancel() {
+    this.cancel.emit();
   }
 
 }

@@ -1,49 +1,84 @@
 <p-toast></p-toast>
-<div class="card flex justify-center">
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full max-w-sm">
-    <div class="inline-flex flex-col gap-2">
-        <input pInputText class="bg-white/20 border-0 p-4 text-primary-50 w-full" type="text" id="username" placeholder="Nome de usuario" formControlName="username" [invalid]="isInvalid('username')" />
-        @if (isInvalid('username')) {
-            <p-message severity="error" size="small" variant="simple">Deve preencher um nome de usuario.</p-message>
-        }
-    </div>
-    <div class="inline-flex flex-col gap-2">
-        <input pInputText class="bg-white/20 border-0 p-4 text-primary-50 w-full" type="email" id="email" placeholder="Email" formControlName="email" [invalid]="isInvalid('email')" />
-        @if (isInvalid('email')) {
-            @if (registerForm.get('email')?.errors?.['required']) {
-                <p-message severity="error" size="small" variant="simple">Deve preencher um email.</p-message>
+<div class="flex justify-center p-4">
+    <h1 class="font-bold text-3xl">Cadastro</h1>
+</div>
+<div class="p-8 flex justify-center">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full max-w-md">
+        <div class="inline-flex flex-col gap-2">
+            <label>Nome de Usuário</label>
+            <p-inputgroup class="border-1 border-slate-600/50 rounded-lg">
+                <p-inputgroup-addon styleClass="bg-slate-800/80 border-none">
+                    <i class="pi pi-user"></i>
+                </p-inputgroup-addon>
+                <input pInputText type="text" id="username" formControlName="username" [invalid]="isInvalid('username')" />
+            </p-inputgroup>
+            @if (isInvalid('username')) {
+                <p-message severity="error" size="small" variant="simple">Deve preencher um nome de usuario.</p-message>
             }
-            @if (registerForm.get('email')?.errors?.['email']) {
-                <p-message severity="error" size="small" variant="simple">Insira um email valido.</p-message>
+        </div>
+        <div class="inline-flex flex-col gap-2">
+            <label>Email</label>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-envelope"></i>
+                </p-inputgroup-addon>
+                <input pInputText type="email" id="email" formControlName="email" [invalid]="isInvalid('email')" />
+            </p-inputgroup>
+            @if (isInvalid('email')) {
+                @if (registerForm.get('email')?.errors?.['required']) {
+                    <p-message severity="error" size="small" variant="simple">Deve preencher um email.</p-message>
+                }
+                @if (registerForm.get('email')?.errors?.['email']) {
+                    <p-message severity="error" size="small" variant="simple">Insira um email valido.</p-message>
+                }
             }
-        }
-    </div>
+        </div>
 
-    <div class="inline-flex flex-col gap-2">
-        <p-password
-        inputStyleClass="bg-white/20 border-0 p-4 text-primary-50 w-full"
-        [invalid]="isInvalid('password')"
-        [toggleMask]="true"
-        feedback="true"
-        formControlName="password"
-        promptLabel="Crie uma senha segura!"
-        placeholder="Senha"
-        weakLabel="Fraca"
-        mediumLabel="Média"
-        strongLabel="Forte"
-        >
-            <ng-template #header>
-                <div class="font-semibold text-xm mb-4">Digite sua senha!</div>
-            </ng-template>
-            <ng-template #footer>
-                <p-divider />
-                <ul class="pl-2 my-0 leading-normal">
-                    <li>Mínimo: </li>
-                    <li>• 1 minúscula</li>
-                    <li>• 1 maiúscula</li>
-                    <li>• 1 número</li>
-                </ul>
-            </ng-template>
-        </p-password>
-    </div>
-</form>
+        <div class="inline-flex flex-col gap-2">
+            <label>Senha</label>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-lock"></i>
+                </p-inputgroup-addon>
+                <p-password
+                [invalid]="isInvalid('password')"
+                [toggleMask]="true"
+                feedback="true"
+                formControlName="password"
+                promptLabel="Crie uma senha segura!"
+                placeholder="Senha"
+                weakLabel="Fraca"
+                mediumLabel="Média"
+                strongLabel="Forte"
+                >
+                    <ng-template #header>
+                        <div class="font-semibold mb-4">Digite sua senha!</div>
+                    </ng-template>
+                    <ng-template #footer>
+                        <p-divider />
+                        <ul class="pl-2 my-0 leading-normal text-xs">
+                            <li class="font-bold pb-1">No minimo: </li>
+                            <li>8 caracteres</li>
+                            <li>1 letras maiúscula</li>
+                            <li>1 letra minúscula</li>
+                            <li>1 número</li>
+                        </ul>
+                    </ng-template>
+                </p-password>
+            </p-inputgroup>
+        </div>
+        <div class="flex justify-center items-center gap-4 w-full">
+            <p-button
+                label="Cancelar"
+                (click)="onCancel()"
+                styleClass="!bg-transparent !border-white/20 !text-white/70 hover:!bg-white/10 hover:!text-white !p-4 w-full"
+                class="w-full"
+            />
+            <p-button
+                label="Registrar"
+                styleClass="!p-4 w-full"
+                class="w-full"
+            />
+        </div>
+    </form>
+</div>
