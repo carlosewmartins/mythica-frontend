@@ -1,0 +1,45 @@
+<p-toast></p-toast>
+<div class="flex justify-center p-4">
+    <h1 class="font-bold text-3xl">Entrar</h1>
+</div>
+<div class="p-8 flex justify-center">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full max-w-md">
+        <div class="inline-flex flex-col gap-2">
+            <label>Nome de Usuário</label>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-user"></i>
+                </p-inputgroup-addon>
+                <input pInputText type="text" id="username" formControlName="username"/>
+            </p-inputgroup>
+        </div>
+
+        <div class="inline-flex flex-col gap-2">
+            <label>Senha</label>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-lock"></i>
+                </p-inputgroup-addon>
+                <p-password
+                [toggleMask]="true"
+                feedback="false"
+                formControlName="password"
+                >
+                </p-password>
+            </p-inputgroup>
+        </div>
+        <div class="flex justify-center items-center gap-4 w-full">
+            <p-button
+                label="Cancelar"
+                styleClass="!bg-transparent !border-white/20 !text-white/70 hover:!bg-white/10 hover:!text-white !p-4 w-full"
+                class="w-full"
+                (click)="onCancel()"
+                />
+            <p-button
+                label="Entrar"
+                styleClass="!p-4 w-full"
+                class="w-full"
+            />
+        </div>
+    </form>
+</div>

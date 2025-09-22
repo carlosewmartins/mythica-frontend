@@ -1,0 +1,27 @@
+p-inputgroup {
+    border: 1px solid rgba(71, 85, 105, 0.5);
+    border-radius: 0.5rem;
+}
+
+p-inputgroup-addon {
+    background-color: rgba(30, 41, 59, 0.8);
+    border: none;
+
+}
+
+i {
+    color: #6b7280
+}
+
+input[pInputText], ::ng-deep .p-password .p-password-input {
+    background-color: rgba(30, 41, 59, 0.8);
+    border: none;
+    width: 100%;
+    padding: 1rem
+}
+
+label {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
