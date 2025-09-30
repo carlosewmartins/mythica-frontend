@@ -5,12 +5,12 @@
 <div class="p-8 flex justify-center">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6 w-full max-w-md">
         <div class="inline-flex flex-col gap-2">
-            <label>Nome de Usuário</label>
+            <label>Email</label>
             <p-inputgroup>
                 <p-inputgroup-addon>
                     <i class="pi pi-user"></i>
                 </p-inputgroup-addon>
-                <input pInputText type="text" id="username" formControlName="username"/>
+                <input pInputText type="email" id="email" formControlName="email"/>
             </p-inputgroup>
         </div>
 
@@ -39,6 +39,7 @@
                 label="Entrar"
                 styleClass="!p-4 w-full"
                 class="w-full"
+                (onClick)="onSubmit()"
             />
         </div>
     </form>
