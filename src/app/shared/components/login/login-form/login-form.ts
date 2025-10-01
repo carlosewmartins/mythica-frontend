@@ -9,10 +9,10 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../../../core/services/auth';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     InputTextModule,
@@ -29,8 +29,7 @@ import { Router } from '@angular/router';
 export class LoginForm {
   private fb = inject(FormBuilder);
   private messageService = inject(MessageService);
-  authService = inject(AuthService);
-  private router = inject(Router);
+  private authService = inject(AuthService);
 
   @Output() closeDialog = new EventEmitter<void>();
   @Output() loginSuccess = new EventEmitter<void>();
@@ -46,6 +45,7 @@ export class LoginForm {
   }
 
   onSubmit(): void {
+    // Marca todos os campos como touched para mostrar erros
     Object.keys(this.loginForm.controls).forEach(key => {
       this.loginForm.get(key)?.markAsTouched();
     });
@@ -69,11 +69,9 @@ export class LoginForm {
 
           this.isSubmitting = false;
           this.loginForm.reset();
-          this.loginSuccess.emit();
           
-          setTimeout(() => {
-            this.router.navigate(['/']);
-          }, 500);
+          // Emite evento de sucesso (DialogManager vai lidar com redirecionamento  )
+          this.loginSuccess.emit();
         },
         error: (err: Error) => {
           this.messageService.add({
@@ -86,6 +84,7 @@ export class LoginForm {
         }
       });
     } else {
+      // Mostra mensagem de validação
       const invalidFields: string[] = [];
       if (this.loginForm.get('email')?.invalid) {
         invalidFields.push('Email');
