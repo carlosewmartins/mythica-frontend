@@ -1,0 +1,133 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-4xl font-bold text-white mb-2">Meus Personagens</h1>
+          <p class="text-slate-400">Gerencie seus heróis e inicie novas aventuras</p>
+        </div>
+        
+        <button 
+          pButton 
+          label="Criar Personagem" 
+          icon="pi pi-plus"
+          class="bg-orange-500 hover:bg-orange-600 border-none"
+          (click)="criarPersonagem()">
+        </button>
+      </div>
+    </div>
+
+    <!-- Sem personagem criado -->
+    <div *ngIf="isEmpty()" class="flex flex-col items-center justify-center py-20">
+      <div class="text-center max-w-md">
+        <i class="pi pi-users text-6xl text-slate-600 mb-6"></i>
+        <h2 class="text-2xl font-bold text-white mb-4">Nenhum Personagem Criado</h2>
+        <p class="text-slate-400 mb-8">Comece sua jornada criando seu primeiro herói!</p>
+        <button 
+          pButton 
+          label="Criar Meu Primeiro Personagem" 
+          icon="pi pi-plus"
+          class="bg-orange-500 hover:bg-orange-600 border-none"
+          (click)="criarPersonagem()">
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid de Personagens -->
+    <div *ngIf="!isLoading() && !isEmpty()" 
+         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <div *ngFor="let personagem of personagens()" 
+           class="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/20">
+        
+        <div class="h-32 bg-gradient-to-r from-orange-500/20 to-purple-500/20 relative">
+          <div class="absolute inset-0 bg-black/40"></div>
+          <div class="absolute top-4 right-4 flex gap-2">
+            <p-tag 
+              [value]="personagem.classe" 
+              [severity]="getClasseColor(personagem.classe)"
+              styleClass="text-xs font-semibold uppercase">
+            </p-tag>
+          </div>
+
+          <!-- Cria icone a partir da raça -->
+          <div class="absolute bottom-4 left-4 flex items-center gap-2">
+            <i [class]="'pi ' + getRacaIcon(personagem.raca) + ' text-white text-2xl'"></i>
+            <span class="text-white font-semibold">{{ personagem.raca }}</span>
+          </div>
+        </div>
+
+        <div class="p-6">
+          <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
+            {{ personagem.nome }}
+          </h3>
+          
+          <p class="text-slate-400 text-sm mb-4 overflow-hidden">
+            {{ personagem.descricao }}
+          </p>
+
+          <!-- Status -->
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <div class="text-slate-500 text-xs mb-1">Nível</div>
+              <div class="text-white font-bold text-lg">{{ personagem.status.nivel }}</div>
+            </div>
+            <div class="bg-slate-900/50 rounded-lg p-3">
+              <div class="text-slate-500 text-xs mb-1">Vida</div>
+              <div class="text-white font-bold text-lg">
+                {{ personagem.status.vida_atual }}/{{ personagem.status.vida_maxima }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Atributos -->
+          <div class="grid grid-cols-3 gap-2 mb-6">
+            <div class="text-center">
+              <div class="text-red-400 font-bold text-sm">FOR</div>
+              <div class="text-white text-xs">{{ personagem.atributos.forca }}</div>
+            </div>
+            <div class="text-center">
+              <div class="text-blue-400 font-bold text-sm">INT</div>
+              <div class="text-white text-xs">{{ personagem.atributos.inteligencia }}</div>
+            </div>
+            <div class="text-center">
+              <div class="text-green-400 font-bold text-sm">DES</div>
+              <div class="text-white text-xs">{{ personagem.atributos.destreza }}</div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex gap-2">
+            <button 
+              pButton 
+              label="Jogar" 
+              icon="pi pi-play"
+              class="flex-1 bg-orange-500 hover:bg-orange-600 border-none text-sm"
+              (click)="iniciarCampanha(personagem)">
+            </button>
+            
+            <button 
+              pButton 
+              icon="pi pi-eye"
+              class="bg-slate-700 hover:bg-slate-600 border-none"
+              pTooltip="Ver Detalhes"
+              tooltipPosition="top"
+              (click)="verDetalhes(personagem)">
+            </button>
+            
+            <button 
+              pButton 
+              icon="pi pi-trash"
+              class="bg-red-600 hover:bg-red-700 border-none"
+              pTooltip="Deletar"
+              tooltipPosition="top"
+              (click)="confirmarDelecao($event, personagem)">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog></p-confirmDialog>

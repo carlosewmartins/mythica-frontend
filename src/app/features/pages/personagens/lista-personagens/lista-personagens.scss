@@ -1,0 +1,52 @@
+.group {
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+::ng-deep {
+  .p-confirm-dialog {
+    .p-dialog-header {
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      
+      .p-dialog-title {
+        color: white;
+      }
+    }
+    
+    .p-dialog-content {
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+    
+    .p-dialog-footer {
+      background: #1e293b;
+      border-top: 1px solid #334155;
+    }
+  }
+
+  .p-button-danger {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: rgba(255,255,255,0.8);
+    
+    &:hover {
+      background: #b91c1c;
+      border-color: #b91c1c;
+    }
+  }
+
+  .p-button-cancel {
+    background: transparent;
+    border-color: #64748b;
+    color: rgba(255,255,255,0.8);
+
+    &:hover {
+      background: rgba(100, 116, 139, 0.1);
+      border-color: #94a3b8;
+    }
+  }
+}
