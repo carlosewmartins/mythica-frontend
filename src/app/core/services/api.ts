@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { env } from '../../../env/env';
 
 @Injectable({
@@ -68,7 +69,9 @@ export class ApiService {
     const url = `${this.baseUrl}${endpoint}`;
     const headers = this.getHeaders(requiresAuth);
 
-    return this.http.get<T>(url, { headers })
+    return this.http.get<T>(url, { headers }).pipe(
+      catchError(this.handleError.bind(this))
+    );
   }
 
   // POST Wrapper
@@ -76,13 +79,15 @@ export class ApiService {
     const url = `${this.baseUrl}${endpoint}`;
     const headers = this.getHeaders(requiresAuth);
 
-    return this.http.post<T>(url, body, { headers })
+    return this.http.post<T>(url, body, { headers }).pipe(
+      catchError(this.handleError.bind(this))
+    );
   }
 
 
   postForm<T>(endpoint: string, body: any, requiresAuth: boolean = false): Observable<T> {
     const url = `${this.baseUrl}${endpoint}`;
-    
+
     // Cria URLSearchParams (application/x-www-form-urlencoded)
     const formBody = new URLSearchParams();
     Object.keys(body).forEach(key => {
@@ -94,7 +99,9 @@ export class ApiService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
 
-    return this.http.post<T>(url, formBody.toString(), { headers })
+    return this.http.post<T>(url, formBody.toString(), { headers }).pipe(
+      catchError(this.handleError.bind(this))
+    );
   }
 
   // DELETE Wrapper
@@ -102,6 +109,8 @@ export class ApiService {
     const url = `${this.baseUrl}${endpoint}`;
     const headers = this.getHeaders(requiresAuth);
 
-    return this.http.delete<T>(url, { headers })
+    return this.http.delete<T>(url, { headers }).pipe(
+      catchError(this.handleError.bind(this))
+    );
   }
 }
