@@ -1,14 +1,15 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, inject } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
-import { PasswordModule } from 'primeng/password'
-import { DividerModule } from 'primeng/divider'
-import { InputGroupModule } from 'primeng/inputgroup'
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon'
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../../../core/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -16,36 +17,102 @@ import { MessageService } from 'primeng/api';
     ReactiveFormsModule,
     InputTextModule,
     ButtonModule,
-    ToastModule,
     MessageModule,
     PasswordModule,
     DividerModule,
     InputGroupModule,
     InputGroupAddonModule
-],
+  ],
   templateUrl: './login-form.html',
-  styleUrl: './login-form.scss',
-  providers: [MessageService]
+  styleUrl: './login-form.scss'
 })
-
 export class LoginForm {
+  private fb = inject(FormBuilder);
+  private messageService = inject(MessageService);
+  authService = inject(AuthService);
+  private router = inject(Router);
+
   @Output() closeDialog = new EventEmitter<void>();
+  @Output() loginSuccess = new EventEmitter<void>();
 
   loginForm: FormGroup;
+  isSubmitting = false;
 
-  constructor(
-    private fb: FormBuilder,
-
-  ) {
+  constructor() {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
     });
   }
 
-  onSubmit() {}
+  onSubmit(): void {
+    Object.keys(this.loginForm.controls).forEach(key => {
+      this.loginForm.get(key)?.markAsTouched();
+    });
 
-  onCancel() {
+    if (this.loginForm.valid && !this.isSubmitting) {
+      this.isSubmitting = true;
+
+      const credentials = {
+        username: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+
+      this.authService.login(credentials).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sucesso!',
+            detail: `Bem-vindo, ${this.authService.currentUser()?.name}!`,
+            life: 3000
+          });
+
+          this.isSubmitting = false;
+          this.loginForm.reset();
+          this.loginSuccess.emit();
+          
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 500);
+        },
+        error: (err: Error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erro no login',
+            detail: err.message || 'Email ou senha incorretos',
+            life: 5000
+          });
+          this.isSubmitting = false;
+        }
+      });
+    } else {
+      const invalidFields: string[] = [];
+      if (this.loginForm.get('email')?.invalid) {
+        invalidFields.push('Email');
+      }
+      if (this.loginForm.get('password')?.invalid) {
+        invalidFields.push('Senha');
+      }
+
+      const message = invalidFields.length > 0 
+        ? 'Campos inválidos'
+        : 'Preencha todos os campos corretamente';
+
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Atenção',
+        detail: message,
+        life: 3000
+      });
+    }
+  }
+
+  onCancel(): void {
     this.closeDialog.emit();
+  }
+
+  isInvalid(field: string): boolean {
+    const control = this.loginForm.get(field);
+    return !!(control?.invalid && control?.touched);
   }
 }
