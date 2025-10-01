@@ -1,18 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
-import { Starter } from "./features/pages/home/starter/starter";
+import { DialogManager } from './shared/components/dialog-manager/dialog-manager';
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
     ToastModule,
-    Starter
+    DialogManager
 ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App {  
   protected readonly title = signal('mythica');
 }
