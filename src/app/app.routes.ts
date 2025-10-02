@@ -23,9 +23,14 @@ export const routes: Routes = [
         path: 'criar',
         loadComponent: () => import('./features/pages/personagens/criar-personagem/criar-personagem').then(m => m.CriarPersonagem),
         title: 'Criar Personagem'
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./features/pages/personagens/detalhes-personagem/detalhes-personagem').then(m => m.DetalhesPersonagem),
+        title: 'Detalhes do Personagem'
       }
     ]
-  },      
+  },
   // Pagina não encontrada
   {
     path: '**',
