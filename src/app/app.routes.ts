@@ -28,8 +28,16 @@ export const routes: Routes = [
         path: ':id',
         loadComponent: () => import('./features/pages/personagens/detalhes-personagem/detalhes-personagem').then(m => m.DetalhesPersonagem),
         title: 'Detalhes do Personagem'
-      }
+      },
     ]
+  },
+
+  // Rota Protegida - Campanha
+  {
+    path: 'campanha/:id',
+    loadComponent: () => import('./features/pages/campanha/gameplay/gameplay').then(m => m.Gameplay),
+    canActivate: [authGuard],
+    title: 'Campanha'
   },
   // Pagina não encontrada
   {
