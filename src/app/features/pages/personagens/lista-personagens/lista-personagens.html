@@ -7,13 +7,23 @@
           <p class="text-slate-400">Gerencie seus heróis e inicie novas aventuras</p>
         </div>
         
-        <button 
-          pButton 
-          label="Criar Personagem" 
-          icon="pi pi-plus"
-          class="bg-orange-500 hover:bg-orange-600 border-none"
-          (click)="criarPersonagem()">
-        </button>
+        <div class="flex gap-3">
+          <button 
+            pButton 
+            label="Ver Campanhas" 
+            icon="pi pi-book"
+            severity="secondary"
+            [outlined]="true"
+            (click)="verTodasCampanhas()">
+          </button>
+          <button 
+            pButton 
+            label="Criar Personagem" 
+            icon="pi pi-plus"
+            class="bg-orange-500 hover:bg-orange-600 border-none"
+            (click)="criarPersonagem()">
+          </button>
+        </div>
       </div>
     </div>
 
@@ -38,45 +48,34 @@
          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       
       <div *ngFor="let personagem of personagens()" 
-           class="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/20">
+           class="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden border border-slate-700 hover:border-orange-500 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10">
         
-        <div class="h-32 bg-gradient-to-r from-orange-500/20 to-purple-500/20 relative">
-          <div class="absolute inset-0 bg-black/40"></div>
-          <div class="absolute top-4 right-4 flex gap-2">
+        <div class="p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <i [class]="'pi ' + getRacaIcon(personagem.raca) + ' text-orange-400 text-2xl'"></i>
+              <div>
+                <p class="text-slate-400 text-xs flex items-center gap-2">
+                  {{ personagem.raca }}
+                </p>
+              </div>
+            </div>
             <p-tag 
-              [value]="personagem.classe" 
-              [severity]="getClasseColor(personagem.classe)"
-              styleClass="text-xs font-semibold uppercase">
+              [value]="personagem.classe.toUpperCase()" 
+              [severity]="getClasseColor(personagem.classe)">
             </p-tag>
           </div>
 
-          <!-- Cria icone a partir da raça -->
-          <div class="absolute bottom-4 left-4 flex items-center gap-2">
-            <i [class]="'pi ' + getRacaIcon(personagem.raca) + ' text-white text-2xl'"></i>
-            <span class="text-white font-semibold">{{ personagem.raca }}</span>
-          </div>
-        </div>
-
-        <div class="p-6">
-          <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
-            {{ personagem.nome }}
-          </h3>
-          
-          <p class="text-slate-400 text-sm mb-4 overflow-hidden">
-            {{ personagem.descricao }}
-          </p>
-
+          <h3 class="text-2xl font-bold text-white mb-4">{{ personagem.nome }}</h3>
           <!-- Status -->
-          <div class="grid grid-cols-2 gap-3 mb-6">
+          <div class="grid grid-cols-2 gap-3 mb-4">
             <div class="bg-slate-900/50 rounded-lg p-3">
-              <div class="text-slate-500 text-xs mb-1">Nível</div>
-              <div class="text-white font-bold text-lg">{{ personagem.status.nivel }}</div>
+              <div class="text-slate-400 text-xs mb-1">Nível</div>
+              <div class="text-white text-xl font-bold">{{ personagem.status.nivel }}</div>
             </div>
             <div class="bg-slate-900/50 rounded-lg p-3">
-              <div class="text-slate-500 text-xs mb-1">Vida</div>
-              <div class="text-white font-bold text-lg">
-                {{ personagem.status.vida_atual }}/{{ personagem.status.vida_maxima }}
-              </div>
+              <div class="text-slate-400 text-xs mb-1">Vida</div>
+              <div class="text-white text-xl font-bold">{{ personagem.status.vida_atual }}/{{ personagem.status.vida_maxima }}</div>
             </div>
           </div>
 
@@ -102,7 +101,7 @@
               pButton 
               label="Jogar" 
               icon="pi pi-play"
-              class="flex-1 bg-orange-500 hover:bg-orange-600 border-none text-sm"
+              class="flex-1 bg-orange-500 hover:bg-orange-600 border-none"
               (click)="iniciarCampanha(personagem)">
             </button>
             

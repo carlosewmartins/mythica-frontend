@@ -75,6 +75,11 @@ export class ListaPersonagens implements OnInit {
     this.router.navigate(['/personagens', personagem.id]);
   }
 
+  // Redireciona para a pagina de todas as campanhas
+  verTodasCampanhas(): void {
+    this.router.navigate(['/campanhas']);
+  }
+
   // Inicia campanha com o personagem selecionado
   iniciarCampanha(personagem: Personagem): void {
     this.personagemService.setPersonagemAtual(personagem);
