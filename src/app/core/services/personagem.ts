@@ -29,7 +29,7 @@ export interface Personagem {
   atributos: Atributos;
   status: Status;
   user_id: string;
-  created_at: string;
+  criado_em: string;
 }
 
 export interface CreatePersonagemDto {
