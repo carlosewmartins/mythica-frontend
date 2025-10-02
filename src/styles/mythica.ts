@@ -63,6 +63,34 @@ const MyPreset = definePreset(Aura, {
         borderColor: 'rgba(0,0,0,0)',
         background: 'rgba(0,0,0,0)'
       }
+    },
+    slider: {
+      track: {
+        background:'{slate.700}'
+      },
+      handle:{
+        background: '{orange.500}',
+        hoverBackground: '{orange.700}'
+      },
+      range: {
+        background: '{orange.600}'
+      }
+    },
+    divider: {
+      root:{
+        borderColor:'{slate.600}'
+      }
+    },
+    select: {
+      overlay:{
+        background:'#1e293b',
+        borderColor:'{slate.500}'
+      },
+      option:{
+        selectedBackground:'{primary.700}',
+        selectedFocusBackground:'{primary.600}',
+        focusBackground:'{slate.600}'
+      }
     }
   }
 });
