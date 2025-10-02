@@ -39,6 +39,13 @@ export const routes: Routes = [
     canActivate: [authGuard],
     title: 'Campanha'
   },
+    {
+    path: 'campanhas',
+    loadComponent: () => import('./features/pages/campanha/lista-campanhas/lista-campanhas').then(m => m.ListaCampanhas),
+    canActivate: [authGuard],
+    title: 'Minhas Campanhas'
+  },
+
   // Pagina não encontrada
   {
     path: '**',
