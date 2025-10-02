@@ -1,0 +1,54 @@
+:host ::ng-deep {
+  // customizacao do card
+  .p-card {
+    background: #1e293b;
+    color: white;
+    
+    .p-card-body {
+      padding: 1.5rem;
+    }
+    
+    .p-card-content {
+      padding: 0;
+    }
+  }
+
+  // customizacao do input normal
+  .p-inputtext {
+    background: #0f172a;
+    border-color: #475569;
+    color: white;
+    
+    &:enabled:hover {
+      border-color: #64748b;
+    }
+    
+    &:enabled:focus {
+      border-color: #f97316;
+      box-shadow: 0 0 0 0.2rem rgba(249, 115, 22, 0.2);
+    }
+  }
+  
+  // customizacao do select
+  .p-select {
+    .p-select-label {
+      color: white;
+    }
+    &:hover {
+      border-color: #64748b;
+    }
+  }
+
+  // customizacao para botao desabilitado
+  .p-button {
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// animacao input
+input, textarea, .p-select {
+  transition: all 0.3s ease;
+}
