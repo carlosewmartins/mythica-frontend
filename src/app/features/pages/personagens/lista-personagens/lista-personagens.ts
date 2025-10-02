@@ -9,6 +9,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TooltipModule } from 'primeng/tooltip';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PersonagemService, Personagem } from '../../../../core/services/personagem';
+import { CampanhaService } from '../../../../core/services/campanha';
 
 @Component({
   selector: 'app-lista-personagens',
@@ -28,6 +29,7 @@ import { PersonagemService, Personagem } from '../../../../core/services/persona
 })
 export class ListaPersonagens implements OnInit {
   private personagemService = inject(PersonagemService);
+  private campanhaService = inject(CampanhaService);
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
@@ -76,9 +78,44 @@ export class ListaPersonagens implements OnInit {
   // Inicia campanha com o personagem selecionado
   iniciarCampanha(personagem: Personagem): void {
     this.personagemService.setPersonagemAtual(personagem);
-    // Temporariamente navega para detalhes
-    // Quando criar a tela de campanha, vai criar nova campanha aqui
-    this.router.navigate(['/personagens', personagem.id]);
+
+    // Busca campanhas existentes
+    this.campanhaService.listarCampanhas().subscribe({
+      next: (campanhas) => {
+        // Procura por uma campanha ativa deste personagem
+        const campanhaExistente = campanhas.find(
+          c => c.personagem_id === personagem.id && c.status === 'ativa'
+        );
+
+        if (campanhaExistente) {
+          // Se já existe, navega para ela
+          this.router.navigate(['/campanha', campanhaExistente.id]);
+        } else {
+          // Se não existe, cria uma nova
+          this.campanhaService.criarCampanha(personagem.id).subscribe({
+            next: (novaCampanha) => {
+              this.router.navigate(['/campanha', novaCampanha.id]);
+            },
+            error: (err) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Erro',
+                detail: 'Não foi possível criar a campanha',
+                life: 5000
+              });
+            }
+          });
+        }
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: 'Não foi possível verificar campanhas existentes',
+          life: 5000
+        });
+      }
+    });
   }
 
   // Dialog de confirmar delete
