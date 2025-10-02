@@ -1,0 +1,48 @@
+
+:host ::ng-deep {
+  .p-progressbar {
+    .p-progressbar-value {
+      background: linear-gradient(90deg, #10b981, #34d399);
+    }
+  }
+}
+
+// Animação de entrada
+.fade-animation {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::ng-deep{
+  .p-button-danger {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: rgba(255, 255, 255, 0.8);
+    
+    &:hover {
+      background: #b91c1c;
+      border-color: #b91c1c;
+    }
+  }
+
+  .p-button-cancel {
+    background: transparent;
+    border-color: #64748b;
+    color: rgba(255,255,255,0.8);
+
+    &:hover {
+      background: rgba(100, 116, 139, 0.1);
+      border-color: #94a3b8;
+    }
+  }
+}
