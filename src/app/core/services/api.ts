@@ -9,7 +9,7 @@ import { environment } from '../../../environments/enviroment';
 })
 export class ApiService {
   private http = inject(HttpClient);
-  private baseUrl = env.apiUrl;
+  private baseUrl = environment.apiUrl;
 
   // Retorna Headers
   private getHeaders(includeAuth: boolean = true): HttpHeaders {
