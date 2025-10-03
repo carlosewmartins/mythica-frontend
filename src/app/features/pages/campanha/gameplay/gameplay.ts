@@ -197,11 +197,6 @@ export class Gameplay implements OnInit, AfterViewChecked {
     const est = this.estado();
     if (!est) return 0;
     const porcentagem = (est.vida_atual / est.vida_maxima) * 100;
-    console.log('DEBUG - Calculando vida:', {
-      vida_atual: est.vida_atual,
-      vida_maxima: est.vida_maxima,
-      porcentagem: porcentagem
-    });
     return porcentagem;
   }
 
