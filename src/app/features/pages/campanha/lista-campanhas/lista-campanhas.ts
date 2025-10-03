@@ -13,7 +13,7 @@ import { CampanhaService, Campanha } from '../../../../core/services/campanha';
 import { HistoricoService, InteracaoHistorico } from '../../../../core/services/historico';
 import { PersonagemService } from '../../../../core/services/personagem';
 
-type FiltroStatus = 'todas' | 'ativa' | 'pausada' | 'concluida';
+type FiltroStatus = 'todas' | 'ativa' | 'concluida';
 
 @Component({
   selector: 'app-lista-campanhas',
@@ -202,10 +202,9 @@ export class ListaCampanhas implements OnInit {
     return date.toLocaleDateString('pt-BR');
   }
 
-  getSeverityTag(status: string): 'success' | 'info' | 'warn' {
+  getSeverityTag(status: string): 'success' | 'info' {
     switch (status) {
       case 'ativa': return 'success';
-      case 'pausada': return 'warn';
       case 'concluida': return 'info';
       default: return 'info';
     }
@@ -214,7 +213,6 @@ export class ListaCampanhas implements OnInit {
   getIconeStatus(status: string): string {
     switch (status) {
       case 'ativa': return 'pi-play-circle';
-      case 'pausada': return 'pi-pause-circle';
       case 'concluida': return 'pi-check-circle';
       default: return 'pi-circle';
     }
@@ -228,10 +226,6 @@ export class ListaCampanhas implements OnInit {
   // Helpers para contadores nos filtros
   getCountAtivas(): number {
     return this.campanhasFiltradas().filter(campanha => campanha.status === 'ativa').length;
-  }
-
-  getCountPausadas(): number {
-    return this.campanhasFiltradas().filter(campanha => campanha.status === 'pausada').length;
   }
 
   getCountConcluidas(): number {

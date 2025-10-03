@@ -52,14 +52,6 @@
       </button>
       <button 
         pButton 
-        [label]="'Pausadas (' + getCountPausadas() + ')'"
-        [outlined]="filtroAtual() !== 'pausada'"
-        severity="warn"
-        (click)="setFiltro('pausada')"
-        class="transition-all">
-      </button>
-      <button 
-        pButton 
         [label]="'Concluídas (' + getCountConcluidas() + ')'"
         [outlined]="filtroAtual() !== 'concluida'"
         severity="info"
