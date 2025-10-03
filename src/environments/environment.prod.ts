@@ -1,7 +1,4 @@
-// @ts-ignore
-const apiUrl = process.env['NG_APP_API_URL'] || '/api';
-
 export const environment = {
   production: true,
-  apiUrl: apiUrl
+  apiUrl: 'https://mythica-backend.vercel.app/api' // URL fixa por enquanto
 };
