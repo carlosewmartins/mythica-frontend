@@ -39,6 +39,7 @@ export interface Campanha {
   estado_atual: EstadoJogador;
   criada_em: string;
   atualizada_em: string;
+  etapa_historia?: string;
 }
 
 export interface CreateCampanhaDto {

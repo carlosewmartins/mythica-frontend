@@ -91,7 +91,7 @@ export class DetalhesPersonagem implements OnInit {
         if (campanhaExistente) {
           this.router.navigate(['/campanha', campanhaExistente.id]);
         } else {
-          this.router.navigate(['/campanha/novo']);
+          this.router.navigate(['/campanha']);
         }
       },
       error: (err) => {

@@ -34,6 +34,12 @@ export const routes: Routes = [
 
   // Rota Protegida - Campanha
   {
+    path: 'campanha',
+    loadComponent: () => import('./features/pages/campanha/gameplay/gameplay').then(m => m.Gameplay),
+    canActivate: [authGuard],
+    title: 'Nova Campanha'
+  },
+  {
     path: 'campanha/:id',
     loadComponent: () => import('./features/pages/campanha/gameplay/gameplay').then(m => m.Gameplay),
     canActivate: [authGuard],
