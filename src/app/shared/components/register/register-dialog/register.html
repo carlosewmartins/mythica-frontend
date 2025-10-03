@@ -10,11 +10,6 @@ maskStyleClass="backdrop-blur-sm"
         <div
             class="flex flex-col px-8 py-8 gap-6 rounded-2xl">
             <app-register-form (cancel)="closeDialog()"/>
-            <div class="flex flex-col justify-center items-center text-sm">
-                <p class="text-[#9ca3af]">Ja possuí uma conta?</p>
-                <a href="#" class="text-[#3b82f6] font-bold" (click)="login.showDialog()">Login</a>
-                <app-login #login></app-login>
-            </div>
         </div>
     </ng-template>
 </p-dialog>

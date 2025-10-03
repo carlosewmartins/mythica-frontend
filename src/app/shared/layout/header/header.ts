@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Menubar } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
-import { Register } from '../../components/register/register-dialog/register';
+import { Login } from '../../components/login/login-dialog/login';
 import { DialogService } from '../../../core/services/dialog';
 
 @Component({
@@ -21,7 +21,7 @@ import { DialogService } from '../../../core/services/dialog';
     InputTextModule,
     ButtonModule,
     CommonModule,
-    Register,
+    Login,
     RouterModule
 ]
 })

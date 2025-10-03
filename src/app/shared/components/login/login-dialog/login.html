@@ -7,9 +7,17 @@ maskStyleClass="backdrop-blur-sm"
 [style]="{width: '600px', height: 'fit-content'}"
 [breakpoints]="{'960px': '75vw', '640px': '90vw'}">
     <ng-template #content>
-        <app-login-form
-            (loginSuccess)="onLoginSuccess()"
-            (closeDialog)="closeDialog()">
-        </app-login-form>
+        <div
+            class="flex flex-col px-8 py-8 gap-6 rounded-2xl">
+            <app-login-form
+                (loginSuccess)="onLoginSuccess()"
+                (closeDialog)="closeDialog()">
+            </app-login-form>
+            <div class="flex flex-col justify-center items-center text-sm">
+                <p class="text-[#9ca3af]">Não tem uma conta?</p>
+                <a href="#" class="text-[#3b82f6] font-bold" (click)="register.showDialog()">Registrar</a>
+                <app-register #register></app-register>
+            </div>
+        </div>
     </ng-template>
 </p-dialog>
