@@ -13,11 +13,11 @@
       </p>
     
       <div class="flex gap-2 flex-wrap">
-        <p-button>
+        <p-button (click)="navigateToCharacters()">
           <i class="pi pi-user-plus"></i>
           <span pButtonLabel>Criar Personagem</span>
         </p-button>
-        <p-button severity="secondary" class="transform transition duration-300 ease-in-out active:scale-105">
+        <p-button severity="secondary" class="transform transition duration-300 ease-in-out active:scale-105" (click)="navigateToCampaigns()">
           <i class="pi pi-compass"></i>
           <span pButtonLabel>Continuar Campanha</span>
         </p-button>
