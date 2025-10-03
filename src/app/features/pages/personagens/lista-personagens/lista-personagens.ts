@@ -33,7 +33,6 @@ export class ListaPersonagens implements OnInit {
   private router = inject(Router);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
-
   // State
   personagens = signal<Personagem[]>([]);
   isLoading = signal(true);
@@ -45,7 +44,6 @@ export class ListaPersonagens implements OnInit {
 
   carregarPersonagens(): void {
     this.isLoading.set(true);
-    
     this.personagemService.listarPersonagens().subscribe({
       next: (personagens) => {
         this.personagens.set(personagens);
@@ -82,8 +80,17 @@ export class ListaPersonagens implements OnInit {
 
   // Inicia campanha com o personagem selecionado
   iniciarCampanha(personagem: Personagem): void {
-    this.personagemService.setPersonagemAtual(personagem);
+    if (personagem.status.vida_atual <= 0) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Impossível Iniciar',
+        detail: 'Este personagem está morto e não pode iniciar novas aventuras.',
+        life: 4000
+      });
+      return;
+    }
 
+    this.personagemService.setPersonagemAtual(personagem);
     // Busca campanhas existentes
     this.campanhaService.listarCampanhas().subscribe({
       next: (campanhas) => {
@@ -91,25 +98,12 @@ export class ListaPersonagens implements OnInit {
         const campanhaExistente = campanhas.find(
           c => c.personagem_id === personagem.id && c.status === 'ativa'
         );
-
         if (campanhaExistente) {
           // Se já existe, navega para ela
           this.router.navigate(['/campanha', campanhaExistente.id]);
         } else {
           // Se não existe, cria uma nova
-          this.campanhaService.criarCampanha(personagem.id).subscribe({
-            next: (novaCampanha) => {
-              this.router.navigate(['/campanha', novaCampanha.id]);
-            },
-            error: (err) => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Erro',
-                detail: 'Não foi possível criar a campanha',
-                life: 5000
-              });
-            }
-          });
+          this.router.navigate(['/campanha/novo']); // Navega para rota de criação
         }
       },
       error: (err) => {
@@ -150,7 +144,6 @@ export class ListaPersonagens implements OnInit {
           detail: 'Personagem deletado com sucesso',
           life: 3000
         });
-        
         // Atualiza a lista em seguida
         this.personagens.update(lista => lista.filter(p => p.id !== id));
         this.isEmpty.set(this.personagens().length === 0);
@@ -175,7 +168,6 @@ export class ListaPersonagens implements OnInit {
       'clerigo': 'success',
       'paladino': 'primary'
     };
-    
     return cores[classe.toLowerCase()] || 'secondary';
   }
 
@@ -187,7 +179,6 @@ export class ListaPersonagens implements OnInit {
       'orc': 'pi-bolt',
       'anao': 'pi-shield'
     };
-    
     return icones[raca.toLowerCase()] || 'pi-user';
   }
 }

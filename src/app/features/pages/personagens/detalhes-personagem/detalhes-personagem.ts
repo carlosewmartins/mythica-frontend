@@ -34,15 +34,12 @@ export class DetalhesPersonagem implements OnInit {
   private campanhaService = inject(CampanhaService);
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
-
   personagem = signal<Personagem | null>(null);
   isLoading = signal(true);
   personagemId = signal<string>('');
 
   ngOnInit(): void {
-    // Pega o ID da rota
     const id = this.route.snapshot.paramMap.get('id');
-    
     if (id) {
       this.personagemId.set(id);
       this.carregarPersonagem(id);
@@ -51,10 +48,8 @@ export class DetalhesPersonagem implements OnInit {
     }
   }
 
-  // Carrega os detalhes do personagem
   carregarPersonagem(id: string): void {
     this.isLoading.set(true);
-
     this.personagemService.buscarPersonagem(id).subscribe({
       next: (personagem) => {
         this.personagem.set(personagem);
@@ -68,48 +63,35 @@ export class DetalhesPersonagem implements OnInit {
           life: 5000
         });
         this.isLoading.set(false);
-        
-        // Redireciona após erro
-        setTimeout(() => {
-          this.voltarParaLista();
-        }, 2000);
+        setTimeout(() => this.voltarParaLista(), 2000);
       }
     });
   }
 
-  // Inicia campanha com o personagem
   iniciarCampanha(): void {
     const perso = this.personagem();
     if (!perso) return;
 
-    this.personagemService.setPersonagemAtual(perso);
+    if (perso.status.vida_atual <= 0) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Ação Bloqueada',
+        detail: 'Personagens mortos não podem iniciar campanhas.',
+        life: 4000
+      });
+      return;
+    }
 
-    // Busca campanhas existentes
+    this.personagemService.setPersonagemAtual(perso);
     this.campanhaService.listarCampanhas().subscribe({
       next: (campanhas) => {
-        // Procura por uma campanha ativa deste personagem
         const campanhaExistente = campanhas.find(
           c => c.personagem_id === perso.id && c.status === 'ativa'
         );
-
         if (campanhaExistente) {
-          // Se já existe, navega para ela
           this.router.navigate(['/campanha', campanhaExistente.id]);
         } else {
-          // Se não existe, cria uma nova
-          this.campanhaService.criarCampanha(perso.id).subscribe({
-            next: (novaCampanha) => {
-              this.router.navigate(['/campanha', novaCampanha.id]);
-            },
-            error: (err) => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Erro',
-                detail: 'Não foi possível criar a campanha',
-                life: 5000
-              });
-            }
-          });
+          this.router.navigate(['/campanha/novo']);
         }
       },
       error: (err) => {
@@ -123,11 +105,9 @@ export class DetalhesPersonagem implements OnInit {
     });
   }
 
-  // Confirm Dialog de delete
   confirmarDelecao(event: Event): void {
     const p = this.personagem();
     if (!p) return;
-
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Tem certeza que deseja deletar ${p.nome}? Esta ação não pode ser desfeita e todas as campanhas relacionadas serão perdidas.`,
@@ -143,10 +123,8 @@ export class DetalhesPersonagem implements OnInit {
     });
   }
 
-  // Deleta personagem
   private deletarPersonagem(): void {
     const id = this.personagemId();
-
     this.personagemService.deletarPersonagem(id).subscribe({
       next: () => {
         this.messageService.add({
@@ -155,11 +133,7 @@ export class DetalhesPersonagem implements OnInit {
           detail: 'Personagem deletado com sucesso',
           life: 3000
         });
-        
-        // Redireciona para lista
-        setTimeout(() => {
-          this.voltarParaLista();
-        }, 1000);
+        setTimeout(() => this.voltarParaLista(), 1000);
       },
       error: (err) => {
         this.messageService.add({
@@ -176,35 +150,23 @@ export class DetalhesPersonagem implements OnInit {
     this.router.navigate(['/personagens']);
   }
 
-  // Retorna cor da tag com base na classe
   getClasseColor(classe: string): string {
     const cores: { [key: string]: string } = {
-      'guerreiro': 'danger',
-      'mago': 'info',
-      'ladino': 'warning',
-      'clerigo': 'success',
-      'arqueiro': 'primary',
+      'guerreiro': 'danger', 'mago': 'info', 'ladino': 'warning', 'clerigo': 'success', 'arqueiro': 'primary',
     };
-    
     return cores[classe.toLowerCase()];
   }
 
-  // Retorna icone baseado na raça
   getRacaIcon(raca: string): string {
     const icones: { [key: string]: string } = {
-      'humano': 'pi-user',
-      'elfo': 'pi-star',
-      'orc': 'pi-bolt',
-      'anao': 'pi-shield',
+      'humano': 'pi-user', 'elfo': 'pi-star', 'orc': 'pi-bolt', 'anao': 'pi-shield',
     };
-    
     return icones[raca.toLowerCase()];
   }
 
   getPorcentagemVida(): number {
     const p = this.personagem();
-    if (!p) return 0;
-    
+    if (!p || p.status.vida_maxima === 0) return 0;
     return (p.status.vida_atual / p.status.vida_maxima) * 100;
   }
 }
