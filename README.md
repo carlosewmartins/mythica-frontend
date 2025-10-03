@@ -1,59 +1,85 @@
-# Mythica Frontend
+# Mythica RPG - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![PrimeNG](https://img.shields.io/badge/PrimeNG-2196F3?style=for-the-badge&logo=primeng&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-## Development server
+Este é o frontend da aplicação Mythica RPG, uma Single-Page Application (SPA) construída com Angular. A interface permite que os jogadores se cadastrem, criem seus personagens de RPG, gerenciem suas campanhas e joguem uma aventura interativa guiada por uma Inteligência Artificial.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## ✨ Funcionalidades Principais
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+* **Interface Reativa**: Construída com Angular e Signals para uma experiência de usuário fluida.
+* **UI Moderna**: Componentes da biblioteca PrimeNG com um tema customizado.
+* **Autenticação**: Telas de Login e Registro com gerenciamento de sessão.
+* **Criação de Personagem**: Formulário completo para criar heróis com atributos, raças e classes.
+* **Gerenciamento de Personagens**: Listagem e visualização dos detalhes de cada personagem.
+* **Gerenciamento de Campanhas**: Visualize, continue ou delete campanhas existentes.
+* **Tela de Gameplay**: Interface de chat para interagir com a narrativa gerada pela IA, com visualização de status, inventário e ações sugeridas.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Tecnologias Utilizadas
 
-```bash
-ng generate component component-name
-```
+* **Framework**: Angular 20
+* **Linguagem**: TypeScript
+* **Componentes UI**: PrimeNG
+* **Estilização**: Tailwind CSS e tema customizado PrimeUIX
+* **Gerenciamento de Estado**: Angular Signals
+* **Roteamento**: Angular Router com Guards para proteção de rotas
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🚀 Rodando Localmente
 
-## Building
+Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
 
-To build the project run:
+### Pré-requisitos
 
-```bash
-ng build
-```
+* Node.js v18 ou superior
+* NPM ou Yarn
+* O [Backend do Mythica RPG](#) rodando localmente ou acessível pela rede.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Passos
 
-## Running unit tests
+1.  **Clone o repositório:**
+    ```bash
+    git clone <URL_DO_REPOSITORIO>
+    cd <PASTA_DO_PROJETO_FRONTEND>
+    ```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
 
-```bash
-ng test
-```
+3.  **Configure as variáveis de ambiente:**
+    * Crie uma cópia do arquivo `src/environments/environment.example.ts` e renomeie para `src/environments/environment.ts`.
+    * Certifique-se que a variável `apiUrl` aponta para o seu backend local:
+        ```typescript
+        // src/environments/environment.ts
+        export const environment = {
+          production: false,
+          apiUrl: 'http://localhost:8000/api' // URL do backend local
+        };
+        ```
 
-## Running end-to-end tests
+4.  **Execute a aplicação:**
+    ```bash
+    ng serve
+    # ou
+    npm start
+    ```
+    A aplicação estará disponível em `http://localhost:4200/`.
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## ☁️ Versão em Produção (Deploy)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+A aplicação está disponível online e pode ser acessada publicamente através da URL abaixo.
 
-## Additional Resources
+* **URL da Aplicação**: `https://mythica-rpg.vercel.app/`
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Esta versão está configurada para se comunicar com a API em produção (`https://mythica-backend.onrender.com`).
