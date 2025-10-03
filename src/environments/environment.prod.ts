@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://mythica-backend.vercel.app/api' // URL fixa por enquanto
+  apiUrl: 'https://mythica-backend.onrender.com/api' // URL fixa por enquanto
 };
