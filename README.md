@@ -46,8 +46,8 @@ Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
 
 1.  **Clone o repositório:**
     ```bash
-    git clone <URL_DO_REPOSITORIO>
-    cd <PASTA_DO_PROJETO_FRONTEND>
+    git clone https://github.com/carlosewmartins/mythica-frontend
+    cd https://github.com/carlosewmartins/mythica-frontend
     ```
 
 2.  **Instale as dependências:**
