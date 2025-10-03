@@ -219,6 +219,7 @@ export class Gameplay implements OnInit, AfterViewChecked {
 
   // volta para lista de personagens
   voltarParaPersonagens(): void {
+    this.personagemService.limparCache();
     this.router.navigate(['/personagens']);
   }
 
