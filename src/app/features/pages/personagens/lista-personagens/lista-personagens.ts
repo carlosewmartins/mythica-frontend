@@ -103,7 +103,7 @@ export class ListaPersonagens implements OnInit {
           this.router.navigate(['/campanha', campanhaExistente.id]);
         } else {
           // Se não existe, cria uma nova
-          this.router.navigate(['/campanha/novo']); // Navega para rota de criação
+          this.router.navigate(['/campanha']); // Navega para rota de criação
         }
       },
       error: (err) => {
