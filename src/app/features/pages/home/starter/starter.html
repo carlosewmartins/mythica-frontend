@@ -1,4 +1,4 @@
-<div class="bg-main relative min-h-[clamp(580px,86vh,960px)] grid place-items-start p-[10rem_clamp(2rem,8vw,8rem)_2rem] ">
+<div class="bg-main relative min-h-[clamp(580px,86vh,960px)] grid place-items-start p-[10rem_clamp(1rem,8vw,8rem)_2rem] md:p-[10rem_clamp(2rem,8vw,8rem)_2rem]">
   <app-header class="absolute z-10 w-full"></app-header>
   <section>
     <div class="relative z-1 max-w-2xl pt-[5rem]">
@@ -12,7 +12,7 @@
         & explore mundos dinâmicos guiados por IA
       </p>
     
-      <div class="flex gap-2 flex-wrap">
+      <div class="flex flex-col md:flex-row gap-2 flex-wrap">
         <p-button (click)="navigateToCharacters()">
           <i class="pi pi-user-plus"></i>
           <span pButtonLabel>Criar Personagem</span>

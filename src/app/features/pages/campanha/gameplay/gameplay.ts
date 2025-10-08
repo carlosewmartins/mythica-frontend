@@ -44,6 +44,9 @@ export class Gameplay implements OnInit, AfterViewChecked {
   isEnviandoAcao = signal(false);
   acaoLivre = signal('');
 
+  // Nova propriedade para controlar a visibilidade da barra lateral
+  sidebarHidden = true;
+
   historico = computed(() => this.campanha()?.historico || []);
   estado = computed(() => this.campanha()?.estado_atual);
   ultimaResposta = computed(() => {
@@ -69,6 +72,11 @@ export class Gameplay implements OnInit, AfterViewChecked {
       this.scrollToBottom();
       this.shouldScrollToBottom = false;
     }
+  }
+
+  // Novo método para alternar a barra lateral
+  toggleSidebar(): void {
+    this.sidebarHidden = !this.sidebarHidden;
   }
 
   // Cria uma nova campanha com o personagem atual

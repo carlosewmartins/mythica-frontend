@@ -1,8 +1,6 @@
-<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 md:p-8">
   
-  <!-- Header -->
   <div class="max-w-7xl mx-auto mb-8">
-    <!-- Botão Voltar -->
     <button 
       pButton 
       icon="pi pi-arrow-left" 
@@ -13,9 +11,9 @@
       routerLink="/personagens">
     </button>
 
-    <div class="flex justify-between items-center">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <div>
-        <h1 class="text-4xl font-bold text-white mb-2 flex items-center gap-3">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-2 flex items-center gap-3">
           <i class="pi pi-book text-orange-500"></i>
           Minhas Campanhas
         </h1>
@@ -31,7 +29,6 @@
     </div>
   </div>
 
-  <!-- Filtros -->
   <div class="max-w-7xl mx-auto mb-6">
     <div class="flex gap-2 flex-wrap">
       <button 
@@ -61,10 +58,8 @@
     </div>
   </div>
 
-  <!-- Lista de Campanhas -->
   <div *ngIf="!isLoading()" class="max-w-7xl mx-auto">
     
-    <!-- Empty State -->
     <div *ngIf="campanhasFiltradas().length === 0" class="text-center py-16">
       <i class="pi pi-inbox text-slate-600 text-6xl mb-4"></i>
       <h3 class="text-2xl font-bold text-slate-400 mb-2">Nenhuma campanha encontrada</h3>
@@ -81,15 +76,13 @@
       </button>
     </div>
 
-    <!-- Cards de Campanhas -->
     <div class="space-y-4">
       <p-card 
         *ngFor="let campanha of campanhasFiltradas()" 
         styleClass="bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all">
         
-        <div class="flex justify-between items-start gap-4">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-4">
           
-          <!-- Info da Campanha -->
           <div class="flex-1">
             <div class="flex items-center gap-3 mb-3">
               <i class="pi pi-user text-orange-400 text-2xl"></i>
@@ -101,7 +94,7 @@
               </div>
             </div>
 
-            <div class="flex items-center gap-4 text-sm text-slate-400 mb-3">
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 text-sm text-slate-400 mb-3">
               <div class="flex items-center gap-2">
                 <i class="pi pi-calendar"></i>
                 <span>Última atualização: {{ getDataFormatada(campanha.atualizada_em) }}</span>
@@ -116,7 +109,6 @@
               </div>
             </div>
 
-            <!-- Status Tag -->
             <p-tag 
               [value]="campanha.status.toUpperCase()" 
               [severity]="getSeverityTag(campanha.status)"
@@ -124,8 +116,7 @@
             </p-tag>
           </div>
 
-          <!-- Ações -->
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col sm:flex-row md:flex-col gap-2 w-full md:w-auto">
             <button 
               *ngIf="campanha.status === 'ativa'"
               pButton 
@@ -157,7 +148,6 @@
     </div>
   </div>
 
-  <!-- Dialog de Histórico -->
   <p-dialog 
     [(visible)]="dialogHistoricoVisible"
     [modal]="true"
@@ -168,7 +158,6 @@
     
     <div class="h-full flex flex-col">
       
-      <!-- Info da Campanha -->
       <div *ngIf="campanhaAtual()" class="bg-slate-900/50 rounded-lg p-4 mb-4">
         <div class="flex items-center gap-3 mb-2">
           <i class="pi pi-user text-orange-400 text-xl"></i>
@@ -181,11 +170,9 @@
         </div>
       </div>
 
-      <!-- Histórico -->
       <div *ngIf="!isLoadingHistorico()" class="flex-1 overflow-y-auto space-y-4 pr-2">
         <div *ngFor="let interacao of historico(); let i = index" class="space-y-3">
           
-          <!-- Ação do Jogador (se não for início) -->
           <div *ngIf="!isPrimeiraMensagem(interacao)" class="flex justify-end">
             <div class="bg-orange-600 text-white rounded-lg px-4 py-3 max-w-2xl">
               <div class="text-xs opacity-90 mb-1">Você:</div>
@@ -193,23 +180,19 @@
             </div>
           </div>
 
-          <!-- Resposta do Sistema -->
           <div class="flex justify-start">
             <div class="bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 max-w-3xl">
               
-              <!-- Narrativa -->
               <div class="text-slate-300 leading-relaxed whitespace-pre-wrap mb-3">
                 {{ interacao.resposta_llm.narrativa }}
               </div>
 
-              <!-- Evento -->
               <div *ngIf="interacao.resposta_llm.evento && interacao.resposta_llm.evento.tipo !== 'inicio'" 
                    class="bg-slate-900/50 rounded p-2 mb-2 text-xs text-slate-400">
                 <i class="pi pi-bolt text-yellow-400"></i>
                 Evento: {{ interacao.resposta_llm.evento.tipo }}
               </div>
 
-              <!-- Ações Sugeridas -->
               <div *ngIf="interacao.resposta_llm?.acoesDisponiveis && interacao.resposta_llm.acoesDisponiveis.length > 0" 
                    class="flex gap-2 flex-wrap">
                 <span 
@@ -219,7 +202,6 @@
                 </span>
               </div>
 
-              <!-- Timestamp -->
               <div class="text-xs text-slate-500 mt-2">
                 {{ formatTimestamp(interacao.timestamp) }}
               </div>
